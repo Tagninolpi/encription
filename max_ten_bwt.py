@@ -1,24 +1,25 @@
 def scramble (sentence:str,index,inverse=False):
-    s = sentence+str(index)
-    l= len(s)
-    # create table
+    s = sentence+str(index)#test0
+    l= len(s) # 5
     table = []
-    for i in range(l):
+    for i in range(l): #0,1,2,3,4
         s2 = s[i:l] + s[0:i]
+        # [0:5][]
+        # test0
         table.append(s2)
     '''
-    abc$
-    bc$a
-    c$ab
-    $abc
+    abc0
+    bc0a
+    c0ab
+    0abc
     '''
     #sort in order
     sorted_table = sorted(table,reverse=inverse)
     '''
-    $abc
-    abc$
-    bc$a
-    c$ab
+    0abc
+    abc0
+    bc0a
+    c0ab
     '''
     bwt = ""
     #bwt_order = ""
@@ -26,9 +27,9 @@ def scramble (sentence:str,index,inverse=False):
         bwt += sentence[l-1]
         #bwt_order += sentence[0]
     
-    # => c$ab
+    # => c0ab
     x = bwt[:len(bwt)]
-    print(x)
+    #print(x)
     return x
 
 def add_numbers(scrambled:str,reversed :bool):
@@ -62,16 +63,25 @@ def descramble(scrambled:str,index,inverse = False):
         #print(index+1)
         #print(letter)
     x = origine[:len(origine)-1]
-    print(x)
+    #print(x)
     return x
 
-s = "test"
-def multi_scr(sentence,nb,rev):
-    s = sentence
-    for i in range(nb):
-        s = scramble(s,i,rev)
-    for i in range(0,nb,-1):
-        print(i)
-        s = descramble(s,i,rev)
-    
-multi_scr(s,2,False)
+# s = "test"
+# def multi_scr(sentence,nb,rev):
+#     s = sentence
+#     for i in range(nb):
+#         s = scramble(s,i,rev)
+#     for i in range(0,nb,-1):
+#         print(i)
+#         s = descramble(s,i,rev)
+
+# s0 = scramble(s,0,False)   
+# print(s0)
+# s1 = scramble(s0,1,True)
+# print(s1)
+# ds1 = descramble(s1,1,True)
+# print(ds1)
+# ds0 = descramble(ds1,0,False)
+# print(ds0)
+# #multi_scr(s,2,False)
+
