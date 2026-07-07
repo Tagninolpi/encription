@@ -94,7 +94,7 @@ s = "hello "
 multi_scrb_normale(s,5,0)
 
 
-scr = scramble("do you love me back?")
+scr = scramble("do you like riddles?")
 rep = descramble(scr) 
 print(f"'{scr}'")
 print(rep)
