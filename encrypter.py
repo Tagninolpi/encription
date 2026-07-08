@@ -82,25 +82,60 @@ def encrypt(sentence: str, bit_key: str, encripts):
 
 playing = True
 while playing :
-    sentence = str(input("Write a sentence you wish to encrypt(no numbers): "))
-    bit_number =0
-    if len(sentence)>0:
-        if set(sentence).isdisjoint(set("0123456789")):
-            bit_number = input("Choose a number between 521-1023: ")
-            if type(bit_number) =="int":
-                if not(len(bit_number) >0) or not(bit_number>=512 and bit_number<=1023):
-                    bit_number = r.randrange(512,1023)
-                    print(f"Your number is not valid, the random number generated for you is : {bit_number}")
+    mode = input("write 'e' to encrypt and 'd' to decrypt or 'a' to brute force decrypt:")
+    if mode == 'e':
+        while mode =='e':
+            sentence = str(input("Write a sentence you wish to encrypt(no numbers), or 'e' to exit: "))
+            if sentence == 'e':
+                break 
+            bit_number =0
+            if len(sentence)>0:
+                if set(sentence).isdisjoint(set("0123456789")):
+                    bit_number = input("Choose a number between 512-1023: ")
+                    if not(len(bit_number) >0) or not(int(bit_number)>=512 and int(bit_number)<=1023):
+                        bit_number = r.randrange(512,1023)
+                        print(f"Your number is not valid, the random number generated for you is : {bit_number}")
+                    bit_key = create_bit(int(bit_number))
+                    print(f"Your sentence is :'{sentence}'")
+                    print(f"Your encryption number is : {bit_number}, it is associated to the 'bit key' : {bit_key}")
+                    encrypt_s = encrypt(sentence,bit_key,True)
+                    print(f"Your encryted sentence is :'{encrypt_s}'")
+                else:
+                    print("Numbers are not alowed!")
             else:
-                bit_number = r.randrange(512,1023)
-                print(f"Your number is not valid, the random number generated for you is : {bit_number}")
-            bit_key = create_bit(bit_number)
-            print(f"Your sentence is :'{sentence}'")
-            print(f"Your encryption number is : {bit_number}, it is associated to the 'bit key' : {bit_key}")
-            encrypt_s = encrypt(sentence,bit_key,True)
-            print(f"Your encryted sentence is :'{encrypt_s}'")
-        else:
-            print("Numbers are not alowed!")
-    else:
-        print("You need to write something!")
-    print("__________________________________________________")
+                print("You need to write something!")
+            print("__________________________________________________")
+    elif mode =='d':
+        while mode =='d':
+            sentence = str(input("Write a sentence you wish to decrypt, or 'e' to exit: "))
+            if sentence == 'e':
+                break 
+            bit_number =0
+            if len(sentence)>0:
+                bit_number = input("Give the decrypt key (512-1023): ")
+                if not(len(bit_number) >0) or not(int(bit_number)>=512 and int(bit_number)<=1023):
+                    print("Your number is not valid")
+                    break
+                bit_key = create_bit(int(bit_number))
+                print(f"You want to decrypt :'{sentence}'")
+                print(f"Your encryption number is : {bit_number}, it is associated to the 'bit key' : {bit_key}")
+                encrypt_s = encrypt(sentence,bit_key,False)
+                print(f"Your decryted sentence is :'{encrypt_s}'")
+            else:
+                print("You need to write something!")
+            print("__________________________________________________")
+    elif mode =='a':
+        while mode =='a':
+            sentence = str(input("Write a sentence you wish to decrypt, or 'e' to exit: "))
+            if sentence == 'e':
+                break 
+            if len(sentence)>0:
+                for i in range(512,1024):
+                    bit_key = create_bit(i)
+                    try:
+                        print(f"nb:{i},key{bit_key},sentence:{encrypt(sentence,bit_key,False)}")
+                    except:
+                        pass
+            else:
+                print("You need to write something!")
+            print("__________________________________________________")
