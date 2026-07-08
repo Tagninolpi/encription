@@ -98,5 +98,3 @@ scr = scramble("do you like riddles?")
 rep = descramble(scr) 
 print(f"'{scr}'")
 print(rep)
-#'eiuet! yunv$mla siyilaaooo  '
-#'eueo?kb a$mvc  dyloo '
