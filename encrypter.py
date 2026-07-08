@@ -13,29 +13,29 @@ def scramble (sentence:str,index,inverse=False):
     x = bwt[:len(bwt)]
     return x
 
-def add_numbers(scrambled:str,reversed :bool):
+def add_numbers(scrambled: str, reversed: bool):
     real_matrix = []
     matrix = []
     for letter in scrambled:
         if reversed:
-            matrix.append(f"{letter}{scrambled.count(letter)-real_matrix.count(letter)-1}")
-            real_matrix.append(f"{letter}")
+            tag = (letter, scrambled.count(letter) - real_matrix.count(letter) - 1)
         else:
-            matrix.append(f"{letter}{real_matrix.count(letter)}")
-            real_matrix.append(f"{letter}")
+            tag = (letter, real_matrix.count(letter))
+        matrix.append(tag)
+        real_matrix.append(letter)
     return matrix
 
-def descramble(scrambled:str,index,inverse = False):
-    count_fix = add_numbers(scrambled,inverse)
-    bwt_order = sorted(count_fix,reverse=inverse)
+def descramble(scrambled: str, index, inverse=False):
+    count_fix = add_numbers(scrambled, inverse)
+    bwt_order = sorted(count_fix, reverse=inverse)
     origine = ""
-    btw_o_letter = f"{str(index)}0"
+    btw_o_letter = (str(index), 0)
     for i in range(len(count_fix)):
-        index = count_fix.index(btw_o_letter)
-        letter = bwt_order[index]
+        pos = count_fix.index(btw_o_letter)
+        letter = bwt_order[pos]
         origine += letter[0]
         btw_o_letter = letter
-    x = origine[:len(origine)-1]
+    x = origine[:len(origine) - 1]
     return x
 
 def get_bit_list_from_number(num):
@@ -77,8 +77,6 @@ def encrypt(sentence: str, bit_key: str, encripts):
         else:
             sent = scramble(sent, i, False) if encripts else descramble(sent, i, False)
     return sent
-
-
 
 playing = True
 while playing :
